@@ -1,52 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Be My Valentine 💖</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: pink;
-            margin-top: 100px;
-        }
+<meta charset="UTF-8">
+<title>For Rachel 💖</title>
 
-        h1 {
-            font-size: 40px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            margin: 15px;
-            cursor: pointer;
-        }
+<style>
 
-        #noBtn {
-            position: absolute;
-        }
-    </style>
-</head>
-<body>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
 
-    <h1>Will You Be My Valentine? 💘</h1>
+/* Floating hearts background */
+.heart {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    animation: float 6s linear infinite;
+}
 
-    <button onclick="yesClicked()">Yes ❤️</button>
-    <button id="noBtn" onmouseover="moveNo()">No 💔</button>
-
-    <script>
-        function yesClicked() {
-            alert("Yayyy!! I Love You 💖🥰");
-        }
-
-        function moveNo() {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-
-            document.getElementById("noBtn").style.left = x + "px";
-            document.getElementById("noBtn").style.top = y + "px";
-        }
-    </script>
-
-</body>
-</html>
+@keyframes float {
+    0% {
+        transform: translateY(100vh) s
