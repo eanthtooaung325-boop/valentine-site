@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>For Rachel 💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,6 +16,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 /* Main Card */
@@ -25,36 +26,74 @@ body {
     border-radius: 25px;
     text-align: center;
     box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    max-width: 400px;
+    max-width: 420px;
+    z-index: 5;
+    position: relative;
 }
 
 h1 {
-    color: #ff4d6d;
+    color: #ff2e55;
+    font-weight: 800;
 }
 
 p {
     color: #555;
+    font-size: 18px;
 }
 
 /* Buttons */
 button {
     border: none;
-    padding: 12px 25px;
+    padding: 14px 28px;
     font-size: 18px;
     border-radius: 30px;
     cursor: pointer;
     margin: 10px;
+    transition: 0.2s;
 }
 
 #yesBtn {
-    background: #ff4d6d;
+    background: linear-gradient(45deg,#ff2e55,#ff6f91);
     color: white;
+    box-shadow: 0 5px 15px rgba(255,0,80,0.4);
+}
+
+#yesBtn:hover {
+    transform: scale(1.1);
 }
 
 #noBtn {
-    background: #ccc;
+    background: #ddd;
     color: #333;
     position: absolute;
+    left: 60%;
+    top: 70%;
+}
+
+/* 3D Falling Hearts */
+.heart3d {
+    position: fixed;
+    top: -50px;
+    font-size: 40px;
+    animation: fall 3s linear forwards;
+    z-index: 9999; /* over everything */
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotateX(0deg) rotateY(0deg) scale(0.5);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(120vh) rotateX(360deg) rotateY(360deg) scale(1.5);
+        opacity: 0;
+    }
 }
 
 </style>
@@ -62,13 +101,18 @@ button {
 
 <body>
 
+<!-- Sounds -->
+<audio id="cheerSound" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
+<audio id="clapSound" src="https://www.soundjay.com/human/sounds/cheering-01.mp3"></audio>
+
+
 <div class="card">
 
     <h1>Rachel 💕</h1>
 
     <p>
         Will you be my Valentine? 💖<br><br>
-        I’ll treat you to the best Crème Brûlée 🍮 and love you forever 😘
+        I love you 😘🍮
     </p>
 
     <button id="yesBtn" onclick="yesClicked()">Yes ❤️</button>
@@ -76,20 +120,54 @@ button {
 
 </div>
 
+
 <script>
 
+/* No button runs */
 function moveNo() {
+
     const btn = document.getElementById("noBtn");
 
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
+    const maxX = window.innerWidth - btn.offsetWidth - 20;
+    const maxY = window.innerHeight - btn.offsetHeight - 20;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
 
     btn.style.left = x + "px";
     btn.style.top = y + "px";
 }
 
+
+/* Yes Click */
 function yesClicked() {
-    alert("YAYYY!! 💖 I love you Rachel 😍🍮");
+
+    document.getElementById("cheerSound").play();
+    document.getElementById("clapSound").play();
+
+    for(let i=0;i<80;i++){
+        setTimeout(createHeart3D, i*40);
+    }
+
+    alert("YAYYYY!!! 💖😍");
+}
+
+
+/* Create 3D Heart */
+function createHeart3D(){
+
+    const heart = document.createElement("div");
+    heart.className = "heart3d";
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (30 + Math.random()*30) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },3000);
 }
 
 </script>
