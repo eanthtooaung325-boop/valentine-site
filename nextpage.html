@@ -2,72 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>For My Valentine Rachel</title>
+  <title>Celebration</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
       background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);
       font-family: 'Comic Sans MS', cursive;
       text-align: center;
-      overflow-x: hidden;
     }
     h1 {
       color: #d10056;
       margin-top: 40px;
       font-size: 2.8em;
-      text-shadow: 2px 2px #fff;
     }
-    .celebration {
-      margin-top: 20px;
-      font-size: 1.5em;
-      color: #ff69b4;
+    .paragraph {
+      width: 350px;
+      height: 180px;
+      overflow-y: scroll;
+      margin: 20px auto;
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
-    .images {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+    .choices {
       margin-top: 30px;
     }
-    .images img {
-      width: 250px;
-      height: auto;
-      margin: 15px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    }
-    .balloons {
-      position: fixed;
-      top: -100px;
-      left: 50%;
-      font-size: 50px;
-      animation: drop 6s linear infinite;
-    }
-    @keyframes drop {
-      to { transform: translateY(110vh); }
+    .btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      margin: 10px;
+      background: hotpink;
+      color: white;
     }
   </style>
 </head>
 <body>
   <h1>Happy Valentine’s Day, Rachel! 💖</h1>
-  <div class="celebration">
-    You said YES! Let’s celebrate with your favorite things 🎉🍮🌸
+  <div class="paragraph">
+    This is where you can write your sweet paragraph, poem, or memories together. It scrolls so you can add as much as you want.
   </div>
 
-  <div class="images">
-    <!-- Creme Brûlée -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Creme_brulee.jpg" alt="Creme Brûlée">
-    <!-- Peonies -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Peonies_in_bloom.jpg" alt="Peonies">
-    <!-- Balloons -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Balloons.jpg" alt="Balloons">
-    <!-- Decorative ropes (placeholder) -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Rope.jpg" alt="Ropes">
+  <div class="choices">
+    <p>Choose one of your favorites:</p>
+    <button class="btn" onclick="location.href='cremebrulee.html'">🍮 Creme Brûlée</button>
+    <button class="btn" onclick="location.href='peonies.html'">🌸 Peonies</button>
   </div>
-
-  <!-- Falling balloons emoji -->
-  <div class="balloons">🎈</div>
-  <div class="balloons" style="left:30%;">🎈</div>
-  <div class="balloons" style="left:70%;">🎈</div>
 </body>
 </html>
+
