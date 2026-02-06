@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Valentine Rachel</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    h1 {
+      color: #d10056;
+      margin-top: 40px;
+      font-size: 2.8em;
+      text-shadow: 2px 2px #fff;
+    }
+    .celebration {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #ff69b4;
+    }
+    .images {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .images img {
+      width: 250px;
+      height: auto;
+      margin: 15px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .balloons {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      font-size: 50px;
+      animation: drop 6s linear infinite;
+    }
+    @keyframes drop {
+      to { transform: translateY(110vh); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Valentine’s Day, Rachel! 💖</h1>
+  <div class="celebration">
+    You said YES! Let’s celebrate with your favorite things 🎉🍮🌸
+  </div>
+
+  <div class="images">
+    <!-- Creme Brûlée -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Creme_brulee.jpg" alt="Creme Brûlée">
+    <!-- Peonies -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Peonies_in_bloom.jpg" alt="Peonies">
+    <!-- Balloons -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Balloons.jpg" alt="Balloons">
+    <!-- Decorative ropes (placeholder) -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Rope.jpg" alt="Ropes">
+  </div>
+
+  <!-- Falling balloons emoji -->
+  <div class="balloons">🎈</div>
+  <div class="balloons" style="left:30%;">🎈</div>
+  <div class="balloons" style="left:70%;">🎈</div>
+</body>
+</html>
