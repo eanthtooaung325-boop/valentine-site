@@ -1,176 +1,261 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>For Rachel 💖</title>
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
+import { Heart, Gift, Music, Stars } from 'lucide-react';
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+// Assets
+const ASSETS = {
+  peonies: "https://public.youware.com/users-website-assets/prod/c612f23b-7dc4-4825-916f-98710c0dd684/74d791253e7e4e16911d424409498ce2.jpg",
+  cremeBrulee: "https://public.youware.com/users-website-assets/prod/c612f23b-7dc4-4825-916f-98710c0dd684/1f3faf6db9c64c48b6756fc27333d538.jpg",
+  background: "https://public.youware.com/users-website-assets/prod/c612f23b-7dc4-4825-916f-98710c0dd684/109ce88d002443d58f6a2d11381b69f7.jpg",
+  hearts: "https://public.youware.com/users-website-assets/prod/c612f23b-7dc4-4825-916f-98710c0dd684/8961c29b56634841aeeb4404aff78fce.png"
+};
 
-<style>
+export default function ValentineProposal() {
+  const [noCount, setNoCount] = useState(0);
+  const [yesPressed, setYesPressed] = useState(false);
+  const [showLetter, setShowLetter] = useState(false);
+  const [noBtnPosition, setNoBtnPosition] = useState({ x: 0, y: 0 });
 
-body {
-    margin: 0;
-    height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  const yesButtonSize = noCount * 20 + 16;
+
+  const handleNoHover = () => {
+    const x = Math.random() * (window.innerWidth - 200) - (window.innerWidth / 2 - 100);
+    const y = Math.random() * (window.innerHeight - 200) - (window.innerHeight / 2 - 100);
+    setNoBtnPosition({ x, y });
+    setNoCount(noCount + 1);
+  };
+
+  const handleYesClick = () => {
+    setYesPressed(true);
+    
+    // Trigger confetti
+    const duration = 5 * 1000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+    const interval: any = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+      
+      // since particles fall down, start a bit higher than random
+      confetti({
+        ...defaults, 
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+      });
+      confetti({
+        ...defaults, 
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+      });
+    }, 250);
+
+    // Transition to letter after 5 seconds
+    setTimeout(() => {
+      setShowLetter(true);
+    }, 5000);
+  };
+
+  if (showLetter) {
+    return (
+      <div className="min-h-screen bg-pink-50 flex items-center justify-center p-4 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 z-0 opacity-20"
+          style={{
+            backgroundImage: `url(${ASSETS.background})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        />
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-2xl w-full bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 z-10 border-4 border-pink-200 relative"
+        >
+          <div className="absolute -top-6 -left-6 text-pink-500 animate-bounce">
+            <Heart size={48} fill="currentColor" />
+          </div>
+          <div className="absolute -bottom-6 -right-6 text-pink-500 animate-bounce delay-100">
+            <Heart size={48} fill="currentColor" />
+          </div>
+
+          <h1 className="text-4xl font-bold text-pink-600 mb-6 text-center font-serif">My Dearest Rachel</h1>
+          
+          <div className="prose prose-pink max-w-none h-[60vh] overflow-y-auto pr-4 custom-scrollbar text-lg leading-relaxed text-gray-700 font-serif">
+            <p>
+              From the moment I met you, my life has been brighter, sweeter, and so much more beautiful. 
+              Just like your favorite peonies, you bring color and joy to my world every single day.
+            </p>
+            <p>
+              You are sweeter than the perfect crème brûlée (and that's saying a lot!). 
+              Your smile lights up the room, and your kindness warms my heart in ways I never knew possible.
+            </p>
+            <p>
+              I wanted to ask you this in a special way because you deserve nothing but the best. 
+              So, here I am, pouring my heart out...
+            </p>
+            <p>
+              Will you make me the happiest person alive and be my Valentine?
+            </p>
+            <p>
+              I promise to fill our days with laughter, love, and maybe a little bit of champagne and balloons! 🥂🎈
+            </p>
+            <p>
+              With all my love,
+              <br />
+              [Your Name]
+            </p>
+            {/* Add more paragraphs here as needed */}
+            <div className="h-20"></div>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (yesPressed) {
+    return (
+      <div className="min-h-screen bg-pink-100 flex flex-col items-center justify-center relative overflow-hidden">
+        <div 
+          className="absolute inset-0 z-0 opacity-30"
+          style={{
+            backgroundImage: `url(${ASSETS.background})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        />
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          className="z-10 text-center"
+        >
+          <h1 className="text-6xl md:text-8xl font-bold text-pink-600 mb-8 drop-shadow-lg">
+            YAY!!! 🎉
+          </h1>
+          <div className="flex gap-4 justify-center mb-8">
+            <img 
+              src={ASSETS.peonies} 
+              alt="Peonies" 
+              className="w-48 h-48 object-cover rounded-full border-4 border-white shadow-xl animate-pulse"
+            />
+            <img 
+              src={ASSETS.cremeBrulee} 
+              alt="Creme Brulee" 
+              className="w-48 h-48 object-cover rounded-full border-4 border-white shadow-xl animate-pulse delay-75"
+            />
+          </div>
+          <p className="text-2xl text-pink-700 font-semibold">
+            See you in a few seconds... ❤️
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-red-50 to-pink-100 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Elements */}
+      <div 
+        className="absolute inset-0 z-0 opacity-20"
+        style={{
+          backgroundImage: `url(${ASSETS.background})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      />
+      
+      {/* Floating Hearts Background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-pink-300/50"
+            initial={{ 
+              x: Math.random() * window.innerWidth, 
+              y: window.innerHeight + 100,
+              scale: Math.random() * 0.5 + 0.5
+            }}
+            animate={{ 
+              y: -100,
+              rotate: 360 
+            }}
+            transition={{ 
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          >
+            <Heart size={Math.random() * 40 + 20} fill="currentColor" />
+          </motion.div>
+        ))}
+      </div>
+
+      <motion.div 
+        className="z-10 max-w-3xl w-full bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/50 text-center"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+      >
+        <div className="flex justify-center gap-6 mb-8">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+            <img 
+              src={ASSETS.peonies} 
+              alt="Peonies" 
+              className="relative w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg transform transition hover:scale-105 duration-300"
+            />
+          </div>
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+            <img 
+              src={ASSETS.cremeBrulee} 
+              alt="Creme Brulee" 
+              className="relative w-40 h-40 object-cover rounded-full border-4 border-white shadow-lg transform transition hover:scale-105 duration-300"
+            />
+          </div>
+        </div>
+
+        <h1 className="text-4xl md:text-6xl font-bold text-pink-600 mb-4 font-serif drop-shadow-sm">
+          Rachel...
+        </h1>
+        <h2 className="text-2xl md:text-4xl font-medium text-gray-700 mb-12 font-serif">
+          Will you be my Valentine? 🌹
+        </h2>
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 min-h-[200px]">
+          <motion.button
+            className="bg-green-500 hover:bg-green-600 text-white font-bold rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2 z-20"
+            style={{ 
+              fontSize: yesButtonSize,
+              padding: `${yesButtonSize * 0.5}px ${yesButtonSize}px`
+            }}
+            onClick={handleYesClick}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            YES <Heart fill="white" />
+          </motion.button>
+
+          <motion.button
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full shadow-lg text-xl flex items-center justify-center gap-2 absolute md:static transition-colors duration-300"
+            animate={{ x: noBtnPosition.x, y: noBtnPosition.y }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            onMouseEnter={handleNoHover}
+            onClick={handleNoHover}
+          >
+            No 😢
+          </motion.button>
+        </div>
+      </motion.div>
+    </div>
+  );
 }
-
-/* Main Card */
-.card {
-    background: white;
-    padding: 40px 50px;
-    border-radius: 25px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    max-width: 420px;
-    z-index: 5;
-    position: relative;
-}
-
-h1 {
-    color: #ff2e55;
-    font-weight: 800;
-}
-
-p {
-    color: #555;
-    font-size: 18px;
-}
-
-/* Buttons */
-button {
-    border: none;
-    padding: 14px 28px;
-    font-size: 18px;
-    border-radius: 30px;
-    cursor: pointer;
-    margin: 10px;
-    transition: 0.2s;
-}
-
-#yesBtn {
-    background: linear-gradient(45deg,#ff2e55,#ff6f91);
-    color: white;
-    box-shadow: 0 5px 15px rgba(255,0,80,0.4);
-}
-
-#yesBtn:hover {
-    transform: scale(1.1);
-}
-
-#noBtn {
-    background: #ddd;
-    color: #333;
-    position: absolute;
-    left: 60%;
-    top: 70%;
-}
-
-/* 3D Falling Hearts */
-.heart3d {
-    position: fixed;
-    top: -50px;
-    font-size: 40px;
-    animation: fall 3s linear forwards;
-    z-index: 9999; /* over everything */
-    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(0) rotateX(0deg) rotateY(0deg) scale(0.5);
-        opacity: 0;
-    }
-
-    30% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(120vh) rotateX(360deg) rotateY(360deg) scale(1.5);
-        opacity: 0;
-    }
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- Sounds -->
-<audio id="cheerSound" src="https://www.soundjay.com/human/sounds/applause-8.mp3"></audio>
-<audio id="clapSound" src="https://www.soundjay.com/human/sounds/cheering-01.mp3"></audio>
-
-
-<div class="card">
-
-    <h1>Rachel 💕</h1>
-
-    <p>
-        Will you be my Valentine? 💖<br><br>
-        I love you 😘🍮
-    </p>
-
-    <button id="yesBtn" onclick="yesClicked()">Yes ❤️</button>
-    <button id="noBtn" onmouseover="moveNo()">No 💔</button>
-
-</div>
-
-
-<script>
-
-/* No button runs */
-function moveNo() {
-
-    const btn = document.getElementById("noBtn");
-
-    const maxX = window.innerWidth - btn.offsetWidth - 20;
-    const maxY = window.innerHeight - btn.offsetHeight - 20;
-
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-}
-
-
-/* Yes Click */
-function yesClicked() {
-
-    document.getElementById("cheerSound").play();
-    document.getElementById("clapSound").play();
-
-    for(let i=0;i<80;i++){
-        setTimeout(createHeart3D, i*40);
-    }
-
-    alert("YAYYYY!!! 💖😍");
-}
-
-
-/* Create 3D Heart */
-function createHeart3D(){
-
-    const heart = document.createElement("div");
-    heart.className = "heart3d";
-    heart.innerHTML = "❤️";
-
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.fontSize = (30 + Math.random()*30) + "px";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },3000);
-}
-
-</script>
-
-</body>
-</html>
