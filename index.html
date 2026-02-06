@@ -5,118 +5,82 @@
   <title>Valentine for Rachel</title>
   <style>
     body {
-      margin: 0;
+      background: pink url('balloons.png') repeat;
       font-family: 'Comic Sans MS', cursive;
-      background: linear-gradient(to bottom right, #ffb6c1, #ffe4e1);
+      text-align: center;
       overflow: hidden;
     }
-    .container {
-      text-align: center;
-      padding-top: 50px;
-    }
     h1 {
-      font-size: 3em;
-      color: #d6336c;
-      text-shadow: 2px 2px #fff;
+      color: red;
+      margin-top: 50px;
     }
-    .buttons {
-      margin-top: 30px;
-    }
-    button {
-      font-size: 1.5em;
-      padding: 15px 30px;
-      border: none;
+    .btn {
+      padding: 20px;
+      font-size: 20px;
       border-radius: 10px;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
-    #yesBtn {
-      background-color: #ff69b4;
+    #yes {
+      background: hotpink;
       color: white;
     }
-    #noBtn {
-      background-color: #ccc;
-      color: black;
+    #no {
+      background: lightgray;
       position: absolute;
     }
-    .scroll-box {
-      width: 60%;
+    .paragraph {
+      width: 300px;
       height: 150px;
-      margin: 30px auto;
       overflow-y: scroll;
-      background: rgba(255,255,255,0.8);
-      padding: 15px;
+      margin: 20px auto;
+      background: white;
+      padding: 10px;
       border-radius: 10px;
     }
     .heart {
       position: fixed;
       top: -50px;
-      font-size: 2em;
+      font-size: 30px;
       color: red;
       animation: fall 5s linear forwards;
     }
     @keyframes fall {
       to { transform: translateY(100vh); }
     }
-    /* Decorative background items */
-    .decor {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Peony_flower.jpg'),
-                        url('https://upload.wikimedia.org/wikipedia/commons/6/6f/Creme_brulee.jpg');
-      background-repeat: no-repeat;
-      background-position: left bottom, right bottom;
-      background-size: 200px, 200px;
-    }
   </style>
 </head>
 <body>
-  <div class="decor"></div>
-  <div class="container">
-    <h1>Rachel, will you be my Valentine? 💖🎉🍾</h1>
-    <div class="buttons">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn" style="left:50%; top:60%;">No</button>
-    </div>
-    <div class="scroll-box">
-      <p>
-        This is an example paragraph. You can write something sweet here,
-        like memories together, reasons you love her, or a Valentine’s poem.
-        The box is scrollable so you can add as much text as you want.
-      </p>
-    </div>
+  <h1>Rachel, will you be my Valentine? 💖🎉🍾</h1>
+  <button id="yes" class="btn">Yes</button>
+  <button id="no" class="btn">No</button>
+
+  <div class="paragraph">
+    This is an example paragraph. You can write something sweet here, like memories together, reasons you love her, or a Valentine's poem. The box is scrollable so you can add as much text as you want.
   </div>
 
   <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
 
-    // No button runs away
+    // Make "No" button run away
     noBtn.addEventListener('mouseover', () => {
-      noBtn.style.left = Math.random() * 80 + '%';
-      noBtn.style.top = Math.random() * 80 + '%';
+      noBtn.style.left = Math.random() * window.innerWidth + 'px';
+      noBtn.style.top = Math.random() * window.innerHeight + 'px';
     });
 
-    // Yes button grows bigger
+    // Make "Yes" button grow and trigger hearts
     yesBtn.addEventListener('click', () => {
       yesBtn.style.transform = 'scale(1.5)';
-      alert("Yay! You said YES! 💕");
-
-      // Falling hearts
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
         heart.className = 'heart';
-        heart.innerHTML = '❤️';
         heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.innerHTML = '❤️';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 5000);
       }
-
-      // After 5 seconds, go to next page
       setTimeout(() => {
-        window.location.href = "nextpage.html"; // replace with your page
+        window.location.href = 'nextpage.html'; // go to next page
       }, 5000);
     });
   </script>
