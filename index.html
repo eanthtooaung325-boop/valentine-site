@@ -35,16 +35,6 @@
       background: lightgray;
       position: absolute;
     }
-    .paragraph {
-      width: 350px;
-      height: 180px;
-      overflow-y: scroll;
-      margin: 20px auto;
-      background: white;
-      padding: 15px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
     .heart {
       position: fixed;
       top: -50px;
@@ -55,42 +45,25 @@
     @keyframes fall {
       to { transform: translateY(100vh); }
     }
-    .decor {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background-image: url('https://i.imgur.com/3ZQ3Y.png'); /* balloons/ropes placeholder */
-      background-repeat: repeat;
-      opacity: 0.2;
-    }
   </style>
 </head>
 <body>
-  <div class="decor"></div>
   <h1>Rachel, will you be my Valentine? 💖🎉🍾</h1>
   <button id="yes" class="btn">Yes</button>
   <button id="no" class="btn">No</button>
-
-  <div class="paragraph">
-    This is an example paragraph. You can write something sweet here, like memories together, reasons you love her, or a Valentine's poem. The box is scrollable so you can add as much text as you want.
-  </div>
 
   <script>
     const yesBtn = document.getElementById('yes');
     const noBtn = document.getElementById('no');
 
-    // Place "No" button initially
     noBtn.style.left = "60%";
     noBtn.style.top = "60%";
 
-    // Make "No" button run away
     noBtn.addEventListener('mouseover', () => {
       noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
       noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
     });
 
-    // Make "Yes" button grow and trigger hearts
     yesBtn.addEventListener('click', () => {
       yesBtn.style.transform = 'scale(1.5)';
       for (let i = 0; i < 30; i++) {
@@ -102,7 +75,6 @@
         setTimeout(() => heart.remove(), 5000);
       }
       setTimeout(() => {
-        // Redirect to next page
         window.location.href = 'nextpage.html';
       }, 5000);
     });
