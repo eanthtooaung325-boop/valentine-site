@@ -9,24 +9,8 @@
       font-family: 'Comic Sans MS', cursive;
       text-align: center;
     }
-    h1 {
-      color: #d10056;
-      margin-top: 40px;
-      font-size: 2.8em;
-    }
-    .paragraph {
-      width: 350px;
-      height: 180px;
-      overflow-y: scroll;
-      margin: 20px auto;
-      background: white;
-      padding: 15px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-    .choices {
-      margin-top: 30px;
-    }
+    h1 { color: #d10056; margin-top: 40px; font-size: 2.8em; }
+    .choices { margin-top: 30px; }
     .btn {
       padding: 15px 30px;
       font-size: 18px;
@@ -37,16 +21,22 @@
       background: hotpink;
       color: white;
     }
+    img {
+      margin-top: 20px;
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
   <h1>Happy Valentine’s Day, Rachel! 💖</h1>
-  <div class="paragraph">
-    This is where you can write your sweet paragraph, poem, or memories together. It scrolls so you can add as much as you want.
-  </div>
+
+  <!-- Add your own picture here -->
+  <img src="yourpicture.jpg" alt="Your Picture">
 
   <div class="choices">
-    <p>Choose one of your favorites:</p>
+    <p>Choose your favorite:</p>
     <button class="btn" onclick="location.href='cremebrulee.html'">🍮 Creme Brûlée</button>
     <button class="btn" onclick="location.href='peonies.html'">🌸 Peonies</button>
   </div>
