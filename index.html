@@ -10,11 +10,13 @@
       background: linear-gradient(to bottom right, #ffe6f0, #ffb6c1);
       font-family: 'Comic Sans MS', cursive;
       text-align: center;
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
     }
     h1 {
       color: #d10056;
-      margin-top: 40px;
       font-size: 2.5em;
       text-shadow: 2px 2px #fff;
     }
@@ -27,14 +29,8 @@
       margin: 20px;
       transition: transform 0.3s ease;
     }
-    #yes {
-      background: hotpink;
-      color: white;
-    }
-    #no {
-      background: lightgray;
-      position: absolute;
-    }
+    #yes { background: hotpink; color: white; }
+    #no { background: lightgray; }
     .heart {
       position: fixed;
       top: -50px;
@@ -42,38 +38,47 @@
       color: red;
       animation: fall 5s linear forwards;
     }
-    @keyframes fall {
-      to { transform: translateY(100vh); }
+    @keyframes fall { to { transform: translateY(100vh); } }
+    #valentineText {
+      display: none;
+      font-size: 2em;
+      color: #d10056;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <h1>Rachel, will you be my Valentine? 💖🎉🍾</h1>
-  <button id="yes" class="btn">Yes</button>
-  <button id="no" class="btn">No</button>
+  <div>
+    <button id="yes" class="btn">Yes</button>
+    <button id="no" class="btn">No</button>
+  </div>
+  <div id="valentineText">You are my Valentine 💖</div>
 
   <script>
     const yesBtn = document.getElementById('yes');
     const noBtn = document.getElementById('no');
+    const valentineText = document.getElementById('valentineText');
 
-    noBtn.style.left = "60%";
-    noBtn.style.top = "60%";
-
+    // No button runs away
     noBtn.addEventListener('mouseover', () => {
+      noBtn.style.position = 'absolute';
       noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
       noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
     });
 
+    // Yes button grows and hearts keep falling
     yesBtn.addEventListener('click', () => {
       yesBtn.style.transform = 'scale(1.5)';
-      for (let i = 0; i < 30; i++) {
+      valentineText.style.display = 'block';
+      setInterval(() => {
         const heart = document.createElement('div');
         heart.className = 'heart';
         heart.style.left = Math.random() * window.innerWidth + 'px';
         heart.innerHTML = '❤️';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 5000);
-      }
+      }, 300);
       setTimeout(() => {
         window.location.href = 'nextpage.html';
       }, 5000);
